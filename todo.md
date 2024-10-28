@@ -8,11 +8,11 @@
 
 ## 2. Structures fondamentales
 - [ ] Implémenter la classe Scene
-	- fond 
-	- sol
+	- background 
+	- foreground
 	- peut etre coordoné des objet 
-- [ ] Implémenter la classe Observateur (caméra)
-	- plan projection
+- [ ] Implémenter la classe  Camera
+	- projection plan
 	- distance par rapport au plan 
 	- dim (xy) = resolution 
 - [ ] Créer la classe Image pour le stockage du résultat
@@ -77,17 +77,12 @@
 - [ ] Ajouter la profondeur de champ
 - [ ] Implémenter les effets de caustique basiques
 
+(optional)
 ## 11. Interface utilisateur
 - [ ] Créer une interface pour charger les scènes
 - [ ] Ajouter les contrôles de caméra
 - [ ] Implémenter la prévisualisation en temps réel
 - [ ] Ajouter les options de rendu (résolution, profondeur de récursion)
-
-## 12. Tests et validation
-- [ ] Créer des tests unitaires pour les calculs mathématiques
-- [ ] Créer des scènes de test spécifiques
-- [ ] Implémenter des tests de performance
-- [ ] Créer des tests de comparaison avec des images de référence
 
 ## 13. Documentation
 - [ ] Documenter l'architecture du système

@@ -7,44 +7,44 @@
 - [x] Implémenter les opérations mathématiques vectorielles de base
 
 ## 2. Structures fondamentales
-- [ ] Implémenter la classe Scene
+- [x] Implémenter la classe Scene
 	- background 
 	- foreground
-	- peut etre coordoné des objet 
-- [ ] Implémenter la classe  Camera
+- [x] coordoné des objet *on going*
+- [ ] Implémenter la classe Camera
 	- projection plan
 	- distance par rapport au plan 
 	- dim (xy) = resolution 
-- [ ] Créer la classe Image pour le stockage du résultat
+- [x] Créer la classe Image pour le stockage du résultat
 	-  done ? 
-- [ ] Implémenter les structures de couleur (RGB) ?
+- [ ] Implémenter les structures de couleur (RGB) ? *on going*
 
 ## 3. Objets géométriques basiques
-- [ ] Implémenter la classe abstraite Objet
-- [ ] Implémenter la classe Sphere
-  - [ ] Calcul d'intersection rayon-sphère
-  - [ ] Calcul de la normale au point d'intersection
-- [ ] Implémenter la classe Plan
+- [x] Implémenter la classe abstraite Objet 
+- [x] Implémenter la classe Sphere *on going*
+  - [x] Calcul d'intersection rayon-sphère *on going*
+  - [x] Calcul de la normale au point d'intersection
+- [X] Implémenter la classe Plan
 - [ ] Implémenter la classe Triangle
   - [ ] Calcul d'intersection rayon-triangle
   - [ ] Gestion des coordonnées barycentriques
 
 ## 4. Algorithme de base du raytracer
-- [ ] Implémenter la fonction principale lancerDeRayons()
+- [x] Implémenter la fonction principale lancerDeRayons()
 - [ ] Implémenter la génération des rayons primaires
-- [ ] Implémenter la recherche d'intersection la plus proche
-- [ ] Gérer la couleur de fond (background)
+- [x] Implémenter la recherche d'intersection la plus proche *on going*
+- [x] Gérer la couleur de fond (background)
 
 ## 5. Éclairage et ombres
 - [ ] Implémenter la classe Source Lumineuse
 - [ ] Implémenter le calcul de la lumière diffuse (loi de Lambert)
-- [ ] Ajouter la gestion des rayons d'ombre
-- [ ] Implémenter la lumière ambiante basique
+- [ ] Ajouter la gestion des rayons d'ombre *on going*
+- [ ] Implémenter la lumière ambiante basique *on going*
 
 ## 6. Réflexions
 - [ ] Implémenter le calcul du rayon réfléchi
   - [ ] Formule de réflexion: R = I - 2(N·I)N
-- [ ] Gérer la récursivité des rayons réfléchis
+- [x] Gérer la récursivité des rayons réfléchis
 - [ ] Implémenter les coefficients de réflexion des matériaux
 - [ ] Ajouter la limite de profondeur de récursion
 

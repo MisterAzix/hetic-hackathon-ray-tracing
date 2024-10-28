@@ -6,8 +6,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 add_executable(hetic_hackathon_ray_tracing
         main.cpp
+        src/lib/lodepng.cpp
+        src/lib/lodepng.h
         src/Color.cpp
         src/Color.h
         src/Vector3.cpp
         src/Vector3.h
+        src/Image.cpp
+        src/Image.h
 )

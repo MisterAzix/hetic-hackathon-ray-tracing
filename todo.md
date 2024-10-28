@@ -3,7 +3,7 @@
 ## 1. Configuration initiale
 - [x] Créer la structure du projet
 - [x] Mettre en place l'environnement de développement
-- [ ] Créer les classes de base (Point, Vecteur, Rayon)
+- [x] Créer les classes de base (Point, Vecteur)
 - [ ] Implémenter les opérations mathématiques vectorielles de base
 
 ## 2. Structures fondamentales

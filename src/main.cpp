@@ -14,6 +14,16 @@ float attenuation(float distance, float max_distance)
     return std::max(0.0f, 1.0f - (distance / max_distance));
 }
 
+bool isInShadow(const Vector3 &point, const Scene &scene, const Vector3 &light_position)
+{
+    Vector3 light_dir = (light_position - point).normalize();
+    Ray shadow_ray(point + light_dir * 0.001f, light_dir);
+    float t;
+    int id;
+    bool isSphere;
+    return scene.trace(shadow_ray, t, id, isSphere) && t < (light_position - point).length();
+}
+
 Vector3 calculateColor(const Ray &ray, const Scene &scene, const Vector3 &light_position, int depth, float max_distance)
 {
     if (depth <= 0)
@@ -29,19 +39,36 @@ Vector3 calculateColor(const Ray &ray, const Scene &scene, const Vector3 &light_
         Vector3 hit_point = ray.origin + ray.direction * t;
         Vector3 normal = isSphere ? (hit_point - scene.spheres[id].center).normalize() : scene.planes[id].normal;
         Vector3 light_dir = (light_position - hit_point).normalize();
+
         float diff = std::max(0.0f, normal.dot(light_dir));
 
-        float distance_to_light = (light_position - hit_point).normalize().dot(light_position - hit_point);
+        Vector3 view_dir = -ray.direction.normalize();
+        Vector3 half_dir = (light_dir + view_dir).normalize();
+        float spec = std::pow(std::max(0.0f, normal.dot(half_dir)), 32);
+
+        float distance_to_light = (light_position - hit_point).length();
         float attenuation_factor = attenuation(distance_to_light, max_distance);
 
-        Vector3 object_color = isSphere ? Vector3(255, 0, 0) : Vector3(0, 255, 0);
+        Vector3 object_color = isSphere ? Vector3(255, 0, 0) : scene.getCheckerboardColor(hit_point);
+
+        bool shadow = isInShadow(hit_point, scene, light_position);
+        float shadow_factor = shadow ? 0.1f : 1.0f;
 
         Vector3 reflect_dir = ray.direction - normal * 2.0f * ray.direction.dot(normal);
         Ray reflect_ray(hit_point + reflect_dir * 0.001f, reflect_dir);
         Vector3 reflected_color = calculateColor(reflect_ray, scene, light_position, depth - 1, max_distance);
 
         float reflection_factor = 0.5f;
-        Vector3 final_color = object_color * diff * (1.0f - reflection_factor) + reflected_color * reflection_factor;
+        Vector3 final_color;
+
+        if (shadow)
+        {
+            final_color = object_color * diff * shadow_factor;
+        }
+        else
+        {
+            final_color = object_color * (diff + 0.1f * spec) * (1.0f - reflection_factor) + reflected_color * reflection_factor;
+        }
 
         return final_color * attenuation_factor;
     }
@@ -62,10 +89,15 @@ int main()
     unsigned char *image = new unsigned char[width * height * channels];
 
     Scene scene;
-    scene.addSphere(Sphere(Vector3(0, 0, -5), 1));
     scene.addPlane(Plane(Vector3(0, -1, 0), Vector3(0, 1, 0)));
 
     Vector3 light_position = Vector3(5, 5, -10);
+
+    float sphere_x = 0.0f;
+    float sphere_y = 0.0f;
+    float sphere_z = -5.0f;
+
+    scene.addSphere(Sphere(Vector3(sphere_x, sphere_y, sphere_z), 1));
 
     for (int j = 0; j < height; ++j)
     {
@@ -92,7 +124,16 @@ int main()
         }
     }
 
-    stbi_write_png("output.png", width, height, channels, image, width * channels);
+    const char *filename = "output.png";
+    if (!stbi_write_png(filename, width, height, channels, image, width * channels))
+    {
+        printf("Erreur lors de l'écriture de l'image : %s\n", filename);
+        delete[] image;
+        return 1;
+    }
+
+    printf("Image %s générée.\n", filename);
+
     delete[] image;
 
     return 0;

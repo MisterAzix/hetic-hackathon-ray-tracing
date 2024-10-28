@@ -4,7 +4,7 @@
 - [x] Créer la structure du projet
 - [x] Mettre en place l'environnement de développement
 - [x] Créer les classes de base (Point, Vecteur)
-- [ ] Implémenter les opérations mathématiques vectorielles de base
+- [x] Implémenter les opérations mathématiques vectorielles de base
 
 ## 2. Structures fondamentales
 - [ ] Implémenter la classe Scene

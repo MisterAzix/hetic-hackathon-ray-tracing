@@ -1,3 +1,6 @@
+#ifndef OPERATIONS_H
+#define OPERATIONS_H
+
 #include <iostream>
 #include <cmath>
 
@@ -40,7 +43,10 @@ public:
         Vecteur3D a_normalized = a.normaliser();
         return a_normalized.multiplicationParScalaire(proj_length);
     }
+
+    void afficher() const {
+        std::cout << "Vecteur: (" << x << ", " << y << ", " << z << ")\n";
+    }
 };
 
-
-
+#endif 

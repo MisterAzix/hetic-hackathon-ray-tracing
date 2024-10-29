@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include "Color.h"
+#include <cmath>
 
 Color:: Color() : r(0), b(0), g(0)
 {

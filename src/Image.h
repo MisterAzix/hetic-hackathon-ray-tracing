@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include "Color.h"
+#include <vector>
 
 class Image
 {

@@ -22,4 +22,5 @@ add_executable(hetic_hackathon_ray_tracing
         src/Sphere.h
         src/Ray.cpp
         src/Ray.h
+        src/Object.h
 )

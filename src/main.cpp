@@ -29,7 +29,7 @@ bool isInShadow(const Vector3 &point, const Scene &scene, const Vector3 &light_p
 }
 
 // Fonction de calcul de la couleur d'un rayon
-Vector3 calculateColor(const Ray &ray, const Scene &scene, const Vector3 &light_position)
+Vector3 calculateColor(const Ray &ray, const Scene &scene, const Vector3 &light_position, const Plane &plane)
 {
     float t;
     int id;
@@ -44,7 +44,7 @@ Vector3 calculateColor(const Ray &ray, const Scene &scene, const Vector3 &light_
         bool shadow = isInShadow(hit_point, scene, light_position) && !isSphere;
 
         // Définit la couleur de l'objet (rouge pour la sphère, damier pour le sol)
-        Vector3 object_color = isSphere ? Vector3(255, 0, 0) : scene.getCheckerboardColor(hit_point);
+        Vector3 object_color = isSphere ? Vector3(255, 0, 0) : plane.getCheckerboardColor(hit_point);
 
         // Calcul de la lumière diffuse avec atténuation d'ombre pour le sol uniquement
         float diff = std::max(0.0f, normal.dot(light_dir)) * (shadow ? 0.3f : 1.0f);
@@ -75,8 +75,9 @@ int main()
 
     unsigned char *image = new unsigned char[width * height * channels]; // Allocation de mémoire pour l'image
 
-    Scene scene;                                                // Création de la scène
-    scene.addPlane(Plane(Vector3(0, -1, 0), Vector3(0, 1, 0))); // Ajout d'un plan représentant le sol
+    Scene scene;
+    Plane plane(Vector3(0, -1, 0), Vector3(0, 1, 0)); // Création de la scène
+    scene.addPlane(plane);                            // Ajout d'un plan représentant le sol
 
     Vector3 light_position = Vector3(5, 5, 0); // Position de la lumière devant la sphère
 
@@ -103,7 +104,7 @@ int main()
 
                 Ray ray(Vector3(0, 0, 0), Vector3(x, y, -1)); // Création d'un rayon partant de la caméra
 
-                color = color + calculateColor(ray, scene, light_position); // Accumulation de la couleur calculée
+                color = color + calculateColor(ray, scene, light_position, plane); // Accumulation de la couleur calculée
             }
 
             color = color * (1.0f / samples_per_pixel);                                       // Moyenne des couleurs pour antialiasing

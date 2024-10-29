@@ -1,6 +1,7 @@
 #pragma once
 #include "Vector3.h"
 #include "Ray.h"
+#include <cmath>
 
 class Sphere
 {

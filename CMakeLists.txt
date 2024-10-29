@@ -14,4 +14,13 @@ add_executable(hetic_hackathon_ray_tracing
         src/Vector3.h
         src/Image.cpp
         src/Image.h
+        src/Scene.cpp
+        src/Scene.h
+        src/Plane.cpp
+        src/Plane.h
+        src/Sphere.cpp
+        src/Sphere.h
+        src/Ray.cpp
+        src/Ray.h
+        src/Object.h
 )

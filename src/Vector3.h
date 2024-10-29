@@ -16,4 +16,17 @@ public:
     float dot(const Vector3 &v) const;
 
     void print() const;
+
+    Vector3 cross(const Vector3 &v) const
+    {
+        return {
+            y * v.z - z * v.y,
+            z * v.x - x * v.z,
+            x * v.y - y * v.x};
+    }
+
+    friend Vector3 operator*(float scalar, const Vector3 &v)
+    {
+        return {v.x * scalar, v.y * scalar, v.z * scalar};
+    }
 };

@@ -1,8 +1,9 @@
 #pragma once
 #include "Vector3.h"
 #include "Ray.h"
+#include "Object.h"
 
-class Sphere
+class Sphere : public Object
 {
 public:
     Vector3 center;
@@ -10,5 +11,5 @@ public:
 
     Sphere(const Vector3 &center, float radius);
 
-    bool intersect(const Ray &ray, float &t) const;
+    bool intersect(const Ray &ray, float &t) const override;
 };

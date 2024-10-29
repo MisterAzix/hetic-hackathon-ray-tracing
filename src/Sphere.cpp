@@ -14,9 +14,6 @@ bool Sphere::intersect(const Ray &ray, float &t) const
     {
         return false;
     }
-    else
-    {
-        t = (-b - std::sqrt(discriminant)) / (2.0f * a);
-        return true;
-    }
+    t = (-b - std::sqrt(discriminant)) / (2.0f * a);
+    return true;
 }

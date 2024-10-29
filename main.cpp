@@ -16,9 +16,9 @@ int main() {
     float aspect_ratio = static_cast<float>(WINDOW_WIDTH) / static_cast<float>(WINDOW_HEIGHT);
 
     Scene scene;
-    scene.addSphere(Sphere(Vector3(4, 0, -5), 1));
-    scene.addSphere(Sphere(Vector3(0, 0, -5), 1));
-    scene.addPlane(Plane(Vector3(0, -1, 0), Vector3(0, 1, 0)));
+    scene.addObject(new Sphere(Vector3(4, 0, -5), 1));
+    scene.addObject(new Sphere(Vector3(0, 0, -5), 1));
+    scene.addObject(new Plane(Vector3(0, -1, 0), Vector3(0, 1, 0)));
 
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
         for (int i = 0; i < WINDOW_WIDTH; ++i) {

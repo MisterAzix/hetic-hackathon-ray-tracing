@@ -1,10 +1,11 @@
 #include "Triangle.h"
+#include "Color.h"
+#include "Vector3.h"
 
 Triangle::Triangle(const Vector3 &v0, const Vector3 &v1, const Vector3 &v2, const Color& color)
     : v0(v0), v1(v1), v2(v2), color(color) {}
 
-bool Triangle::intersect(const Ray &ray, float &distance) const
-{
+bool Triangle::intersect(const Ray &ray, float &distance) const {
     const float tolerance = 1e-6;
     Vector3 edge1 = v1 - v0;
     Vector3 edge2 = v2 - v0;
@@ -33,7 +34,12 @@ bool Triangle::intersect(const Ray &ray, float &distance) const
     return distance > tolerance;
 }
 
-Color Triangle::getColor() const
-{
+Color Triangle::getColor() const {
     return color;
+}
+
+Vector3 Triangle::getNormal(const Vector3 &point) const {
+    Vector3 edge1 = v1 - v0;
+    Vector3 edge2 = v2 - v0;
+    return edge1.cross(edge2).normalize();
 }

@@ -2,13 +2,17 @@
 #include "Vector3.h"
 #include "Ray.h"
 #include "Object.h"
+#include "Color.h"
 
 class Triangle : public Object
 {
 public:
     Vector3 v0, v1, v2;
+    Color color;
 
-    Triangle(const Vector3 &v0, const Vector3 &v1, const Vector3 &v2);
+    Triangle(const Vector3 &v0, const Vector3 &v1, const Vector3 &v2, const Color& color);
 
     bool intersect(const Ray &ray, float &t) const;
+
+    Color getColor() const override;
 };

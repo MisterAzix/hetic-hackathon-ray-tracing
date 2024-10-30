@@ -10,4 +10,6 @@ public:
 
     void addObject(Object *object);
     bool trace(const Ray &ray, float &trace_distance, int &object_id, bool &isSphere) const;
+    
+    Object* getObject(int index) const;
 };

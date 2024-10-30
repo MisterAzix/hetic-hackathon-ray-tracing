@@ -1,6 +1,6 @@
 #include "Plane.h"
 
-Plane::Plane(const Vector3 &point, const Vector3 &normal) : point(point), normal(normal.normalize()) {}
+Plane::Plane(const Vector3 &point, const Vector3 &normal, const Color& color) : point(point), normal(normal.normalize()), color(color) {}
 
 bool Plane::intersect(const Ray &ray, float &t) const
 {
@@ -12,4 +12,9 @@ bool Plane::intersect(const Ray &ray, float &t) const
         return (t >= 0);
     }
     return false;
+}
+
+Color Plane::getColor() const
+{
+    return color;
 }

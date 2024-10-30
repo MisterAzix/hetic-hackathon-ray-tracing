@@ -1,7 +1,7 @@
 #include "Square.h"
 
-Square::Square(const Vector3 &center, float size)
-    : center(center), size(size), normal(0, 0, 1) {}
+Square::Square(const Vector3 &center, float size, const Color& color)
+    : center(center), size(size), normal(0, 0, 1), color(color) {}
 
 bool Square::intersect(const Ray &ray, float &t) const
 {
@@ -27,4 +27,9 @@ bool Square::intersect(const Ray &ray, float &t) const
     }
 
     return false;
+}
+
+Color Square::getColor() const
+{
+    return color;
 }

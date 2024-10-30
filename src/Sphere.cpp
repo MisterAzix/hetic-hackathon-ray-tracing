@@ -1,7 +1,7 @@
 #include "Sphere.h"
 #include <cmath>
 
-Sphere::Sphere(const Vector3 &center, const float radius) : center(center), radius(radius) {}
+Sphere::Sphere(const Vector3 &center, const float radius, const Color& color) : center(center), radius(radius), color(color) {}
 
 bool Sphere::intersect(const Ray &ray, float &t) const
 {
@@ -16,4 +16,9 @@ bool Sphere::intersect(const Ray &ray, float &t) const
     }
     t = (-b - std::sqrt(discriminant)) / (2.0f * a);
     return true;
+}
+
+Color Sphere::getColor() const
+{
+    return color;
 }

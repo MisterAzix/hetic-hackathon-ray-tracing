@@ -28,12 +28,18 @@ Color computeLighting(const Scene &scene, const Vector3 &point, const Vector3 &n
     return finalColor;
 }
 
+Color defaultColor(const Ray& r) {
+    Vector3 normalizedVector = r.direction.normalize();
+    auto a = 0.8*(normalizedVector.y + 1.0);
+    return (1.0-a)*Color(1.0, 1.0, 1.0) + a*Color(0.5, 0.7, 1.0);
+}
+
 int main()
 {
     Image image(WINDOW_WIDTH, WINDOW_HEIGHT);
     float aspectRatio = static_cast<float>(WINDOW_WIDTH) / WINDOW_HEIGHT;
 
-    Camera camera(FOV, aspectRatio, Vector3(0, 0, 20), Vector3(0, 0, -1), Vector3(0, 1, 0));
+    Camera camera(FOV, aspectRatio, Vector3(0, 2, 20), Vector3(0, 0, -1), Vector3(0, 1, 0));
     Scene scene;
 
     scene.addObject(new Sphere(Vector3(4, 0, -5), 1, Color(0.0f, 1.0f, 1.0f)));
@@ -71,7 +77,7 @@ int main()
             }
             else
             {
-                image.SetPixel(i, j, Color(0, 0, 0));
+                image.SetPixel(i, j, defaultColor(ray));
             }
         }
     }

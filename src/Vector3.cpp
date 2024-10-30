@@ -10,10 +10,11 @@ Vector3 Vector3::operator*(const float scalar) const { return {x * scalar, y * s
 Vector3 operator*(float scalar, const Vector3 &v) {
     return {v.x * scalar, v.y * scalar, v.z * scalar};
 }
+Vector3 Vector3::operator/(const float scalar) const { return {x / scalar, y / scalar, z / scalar}; }
 
 Vector3 Vector3::normalize() const
 {
-    const float length = std::sqrt(x * x + y * y + z * z);
+    const float length = this->length();
     return {x / length, y / length, z / length};
 }
 
@@ -24,5 +25,7 @@ Vector3 Vector3::cross(const Vector3 &v) const {
         x * v.y - y * v.x
     };
 }
+
+float Vector3::length() const { return std::sqrt(x * x + y * y + z * z); }
 
 float Vector3::dot(const Vector3 &v) const { return x * v.x + y * v.y + z * v.z; }

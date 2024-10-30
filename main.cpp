@@ -1,3 +1,4 @@
+#include <iostream>
 #include "src/Color.h"
 #include "src/Image.h"
 #include "src/Vector3.h"
@@ -5,16 +6,18 @@
 #include "src/Sphere.h"
 #include "src/Plane.h"
 #include "src/Scene.h"
-#include <iostream>
+#include "src/Camera.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 600;
 constexpr auto OUTPUT_FILENAME = "output.png";
+constexpr float FOV = 30.0f;
 
 int main() {
     Image image(WINDOW_WIDTH, WINDOW_HEIGHT);
-    float aspect_ratio = static_cast<float>(WINDOW_WIDTH) / static_cast<float>(WINDOW_HEIGHT);
+    float aspectRatio = static_cast<float>(WINDOW_WIDTH) / WINDOW_HEIGHT;
 
+    Camera camera(FOV, aspectRatio, Vector3(0, 0, 20), Vector3(0, 0, -1), Vector3(0, 1, 0));
     Scene scene;
     scene.addObject(new Sphere(Vector3(4, 0, -5), 1));
     scene.addObject(new Sphere(Vector3(0, 0, -5), 1));
@@ -22,23 +25,14 @@ int main() {
 
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
         for (int i = 0; i < WINDOW_WIDTH; ++i) {
-            float u = static_cast<float>(i) / static_cast<float>(WINDOW_WIDTH);
-            float v = static_cast<float>(j) / static_cast<float>(WINDOW_HEIGHT);
-            float x = (2 * u - 1) * aspect_ratio;
-            float y = (1 - 2 * v);
-
-            Ray ray(Vector3(0, 0, 0), Vector3(x, y, -1).normalize());
+            Ray ray = camera.generateRay(i, j, WINDOW_WIDTH, WINDOW_HEIGHT);
 
             Color pixelColor(0, 0, 1);
-            float trace_distance;
-            int object_id;
+            float traceDistance;
+            int objectId;
             bool isSphere;
-            if (scene.trace(ray, trace_distance, object_id, isSphere)) {
-                if (isSphere) {
-                    pixelColor = Color(1.0f, 0.0f, 0.0f);
-                } else {
-                    pixelColor = Color(0.0f, 1.0f, 0.0f);
-                }
+            if (scene.trace(ray, traceDistance, objectId, isSphere)) {
+                pixelColor = isSphere ? Color(1.0f, 0.0f, 0.0f) : Color(0.0f, 1.0f, 0.0f);
             }
 
             image.SetPixel(i, j, pixelColor);

@@ -46,7 +46,7 @@
   - [x] Formule de réflexion: R = I - 2(N·I)N
 - [x] Gérer la récursivité des rayons réfléchis
 - [x] Implémenter les coefficients de réflexion des matériaux
-- [ ] Ajouter la limite de profondeur de récursion
+- [x] Ajouter la limite de profondeur de récursion
 
 ## 7. Réfractions
 - [ ] Implémenter le calcul du rayon réfracté (loi de Snell)

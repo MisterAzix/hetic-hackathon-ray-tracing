@@ -52,9 +52,8 @@ int main()
 
             float traceDistance;
             int objectId;
-            bool isSphere;
 
-            if (scene.trace(ray, traceDistance, objectId, isSphere))
+            if (scene.trace(ray, traceDistance, objectId))
             {
                 Object *object = scene.getObjectById(objectId);
 

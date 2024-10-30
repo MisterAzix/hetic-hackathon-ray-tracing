@@ -5,6 +5,7 @@
 #include "src/Sphere.h"
 #include "src/Plane.h"
 #include "src/Scene.h"
+#include "src/Square.h"
 #include <iostream>
 
 constexpr int WINDOW_WIDTH = 800;
@@ -19,6 +20,7 @@ int main() {
     scene.addObject(new Sphere(Vector3(4, 0, -5), 1));
     scene.addObject(new Sphere(Vector3(0, 0, -5), 1));
     scene.addObject(new Plane(Vector3(0, -1, 0), Vector3(0, 1, 0)));
+    scene.addObject(new Square(Vector3(2, 1, -4), 2.0f));
 
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
         for (int i = 0; i < WINDOW_WIDTH; ++i) {

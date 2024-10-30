@@ -11,13 +11,13 @@
 	- background 
 	- foreground
 - [x] coordoné des objet *on going*
-- [ ] Implémenter la classe Camera
+- [x] Implémenter la classe Camera
 	- projection plan
 	- distance par rapport au plan 
 	- dim (xy) = resolution 
 - [x] Créer la classe Image pour le stockage du résultat
 	-  done ? 
-- [ ] Implémenter les structures de couleur (RGB) ? *on going*
+- [ ] Implémenter les structures de couleur (RGB) ? *on going* (Doriane)
 
 ## 3. Objets géométriques basiques
 - [x] Implémenter la classe abstraite Objet 
@@ -25,13 +25,13 @@
   - [x] Calcul d'intersection rayon-sphère *on going*
   - [x] Calcul de la normale au point d'intersection
 - [X] Implémenter la classe Plan
-- [ ] Implémenter la classe Triangle
-  - [ ] Calcul d'intersection rayon-triangle
-  - [ ] Gestion des coordonnées barycentriques
+- [x] Implémenter la classe Triangle
+  - [x] Calcul d'intersection rayon-triangle
+  - [x] Gestion des coordonnées barycentriques
 
 ## 4. Algorithme de base du raytracer
 - [x] Implémenter la fonction principale lancerDeRayons()
-- [ ] Implémenter la génération des rayons primaires
+- [x] Implémenter la génération des rayons primaires
 - [x] Implémenter la recherche d'intersection la plus proche *on going*
 - [x] Gérer la couleur de fond (background)
 
@@ -42,10 +42,10 @@
 - [ ] Implémenter la lumière ambiante basique *on going*
 
 ## 6. Réflexions
-- [ ] Implémenter le calcul du rayon réfléchi
-  - [ ] Formule de réflexion: R = I - 2(N·I)N
+- [x] Implémenter le calcul du rayon réfléchi
+  - [x] Formule de réflexion: R = I - 2(N·I)N
 - [x] Gérer la récursivité des rayons réfléchis
-- [ ] Implémenter les coefficients de réflexion des matériaux
+- [x] Implémenter les coefficients de réflexion des matériaux
 - [ ] Ajouter la limite de profondeur de récursion
 
 ## 7. Réfractions

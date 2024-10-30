@@ -1,7 +1,12 @@
 #include <cmath>
+
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
 #include "Camera.h"
 #include "Ray.h"
 #include "Vector3.h"
+
 
 Camera::Camera(float fov, float aspectRatio, const Vector3 &position, const Vector3 &direction, const Vector3 &up)
 : fov(fov), aspectRatio(aspectRatio), position(position), direction(direction.normalize()) {

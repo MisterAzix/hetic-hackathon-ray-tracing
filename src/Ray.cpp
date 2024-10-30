@@ -8,7 +8,6 @@ Ray Ray::reflect(const Vector3 &point, const Vector3 &normal, float reflectivity
     Vector3 incident = direction;
     Vector3 reflected = incident - 2 * (normal.dot(incident)) * normal;
 
-    // Ajout de la rugosité pour simuler la réflexion métallique
     if (reflectivity > 0.0f)
     {
         float randomX = ((float)rand() / RAND_MAX) * reflectivity;

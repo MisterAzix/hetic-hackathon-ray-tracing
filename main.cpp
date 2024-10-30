@@ -37,7 +37,7 @@ int main() {
             int objectId;
             bool isSphere;
             if (scene.trace(ray, traceDistance, objectId, isSphere)) {
-                pixelColor = scene.getObject(objectId)->getColor();
+                pixelColor = scene.getObjectById(objectId)->getColor();
             }
 
             image.SetPixel(i, j, pixelColor);

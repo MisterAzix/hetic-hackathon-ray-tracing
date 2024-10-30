@@ -25,7 +25,7 @@ bool Scene::trace(const Ray &ray, float &trace_distance, int &object_id, bool &i
 
     return hit;
 }
-Object* Scene::getObject(int index) const
+Object* Scene::getObjectById(int index) const
 {
     if (index < 0 || index >= objects.size())
     {

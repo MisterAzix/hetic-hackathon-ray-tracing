@@ -9,11 +9,22 @@
 #include "src/Square.h"
 #include "src/Triangle.h"
 #include "src/Camera.h"
+#include "src/Light.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 600;
 constexpr auto OUTPUT_FILENAME = "output.png";
 constexpr float FOV = 30.0f;
+
+Color computeLighting(const Scene& scene, const Vector3& point, const Vector3& normal, const Color& objectColor) {
+    Color finalColor(0, 0, 0);
+    for (const auto& light : scene.lights) {
+        Vector3 lightDir = (light.position - point).normalize();
+        float diff = std::max(normal.dot(lightDir), 0.0f);
+        finalColor = finalColor + objectColor * light.color * diff * light.intensity;
+    }
+    return finalColor;
+}
 
 int main() {
     Image image(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -27,6 +38,7 @@ int main() {
     scene.addObject(new Square(Vector3(2, 1, -4), 2.0f, Color(0.0f, 1.0f, 0.0f)));
     scene.addObject(new Triangle(Vector3(-3, 1, -4), Vector3(-1, 1, -4), Vector3(-2, 2, -4), Color(1.0f, 0.5f, 0.0f)));
 
+    scene.addLight(Light(Vector3(10, 10, 10), Color(1.0f, 1.0f, 1.0f), 2.0f));
 
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
         for (int i = 0; i < WINDOW_WIDTH; ++i) {
@@ -37,7 +49,10 @@ int main() {
             int objectId;
             bool isSphere;
             if (scene.trace(ray, traceDistance, objectId, isSphere)) {
-                pixelColor = scene.getObjectById(objectId)->getColor();
+                Vector3 hitPoint = ray.origin + ray.direction * traceDistance;
+                Vector3 normal = scene.getObjectById(objectId)->getNormal(hitPoint);
+                Color objectColor = scene.getObjectById(objectId)->getColor();
+                pixelColor = computeLighting(scene, hitPoint, normal, objectColor);
             }
 
             image.SetPixel(i, j, pixelColor);

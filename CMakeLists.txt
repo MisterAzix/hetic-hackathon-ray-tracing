@@ -29,4 +29,6 @@ add_executable(hetic_hackathon_ray_tracing
         src/Triangle.h
         src/Camera.cpp
         src/Camera.h
+        src/Light.cpp
+        src/Light.h
 )

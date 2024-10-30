@@ -1,12 +1,7 @@
-//
-// Created by Maxence Breuilles on 28/10/2024.
-//
-
 #pragma once
-
 #include <iostream>
 
-class  Color
+class Color
 {
 private:
     float r = 0;
@@ -15,13 +10,15 @@ private:
 public:
     Color();
     Color(float r, float g, float b);
-    ~ Color();
+    ~Color();
 
     float R();
     float G();
     float B();
 
     Color operator+(Color const& col);
+    Color operator*(Color const& col) const;
+    Color operator*(float scalar) const;
     Color& operator=(Color const& col);
     friend std::ostream & operator<<(std::ostream & _stream, Color const & col);
 };

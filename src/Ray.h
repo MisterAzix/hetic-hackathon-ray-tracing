@@ -9,5 +9,5 @@ public:
 
     Ray(const Vector3 &origin, const Vector3 &direction);
 
-    Ray reflect(const Vector3 &point, const Vector3 &normal, float reflectivity) const;
+    Ray reflect(const Vector3 &point, const Vector3 &normal, float reflectivity, int depth) const;
 };

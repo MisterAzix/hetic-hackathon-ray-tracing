@@ -23,4 +23,6 @@ add_executable(hetic_hackathon_ray_tracing
         src/Ray.cpp
         src/Ray.h
         src/Object.h
+        src/Camera.cpp
+        src/Camera.h
 )

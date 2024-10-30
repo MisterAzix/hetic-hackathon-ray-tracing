@@ -17,7 +17,5 @@ public:
     float dot(const Vector3 &v) const;
     Vector3 cross(const Vector3 &v) const;
 
-    Vector3 cross(const Vector3 &v) const;
-
     void print() const;
 };

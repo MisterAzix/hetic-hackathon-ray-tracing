@@ -11,6 +11,6 @@ public:
 
     void addObject(Object *object);
     void addLight(const Light& light);
-    bool trace(const Ray &ray, float &trace_distance, int &object_id, bool &isSphere) const;
+    bool trace(const Ray &ray, float &trace_distance, int &object_id) const;
     Object* getObjectById(int index) const;
 };

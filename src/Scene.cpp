@@ -9,7 +9,7 @@ void Scene::addLight(const Light& light) {
     lights.push_back(light);
 }
 
-bool Scene::trace(const Ray &ray, float &trace_distance, int &object_id, bool &isSphere) const {
+bool Scene::trace(const Ray &ray, float &trace_distance, int &object_id) const {
     trace_distance = 1e20;
     bool hit = false;
 
@@ -19,7 +19,6 @@ bool Scene::trace(const Ray &ray, float &trace_distance, int &object_id, bool &i
             trace_distance = distance;
             object_id = i;
             hit = true;
-            isSphere = dynamic_cast<Sphere*>(objects[i]) != nullptr;
         }
     }
 

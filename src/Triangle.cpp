@@ -1,7 +1,7 @@
 #include "Triangle.h"
 
-Triangle::Triangle(const Vector3 &v0, const Vector3 &v1, const Vector3 &v2)
-    : v0(v0), v1(v1), v2(v2) {}
+Triangle::Triangle(const Vector3 &v0, const Vector3 &v1, const Vector3 &v2, const Color& color)
+    : v0(v0), v1(v1), v2(v2), color(color) {}
 
 bool Triangle::intersect(const Ray &ray, float &distance) const
 {
@@ -31,4 +31,9 @@ bool Triangle::intersect(const Ray &ray, float &distance) const
     distance = inverseDet * edge2.dot(qVector);
 
     return distance > tolerance;
+}
+
+Color Triangle::getColor() const
+{
+    return color;
 }

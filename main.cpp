@@ -21,23 +21,23 @@ int main() {
 
     Camera camera(FOV, aspectRatio, Vector3(0, 0, 20), Vector3(0, 0, -1), Vector3(0, 1, 0));
     Scene scene;
-    scene.addObject(new Sphere(Vector3(4, 0, -5), 1));
-    scene.addObject(new Sphere(Vector3(0, 0, -5), 1));
-    scene.addObject(new Plane(Vector3(0, -1, 0), Vector3(0, 1, 0)));
-    scene.addObject(new Square(Vector3(2, 1, -4), 2.0f));
-    scene.addObject(new Triangle(Vector3(-3, 1, -4), Vector3(-1, 1, -4), Vector3(-2, 2, -4)));
+    scene.addObject(new Sphere(Vector3(4, 0, -5), 1, Color(0.0f, 1.0f, 1.0f)));
+    scene.addObject(new Sphere(Vector3(0, 0, -5), 1, Color(1.0f, 1.0f, 0.0f)));
+    scene.addObject(new Plane(Vector3(0, -1, 0), Vector3(0, 1, 0), Color(0.0f, 0.0f, 1.0f)));
+    scene.addObject(new Square(Vector3(2, 1, -4), 2.0f, Color(0.0f, 1.0f, 0.0f)));
+    scene.addObject(new Triangle(Vector3(-3, 1, -4), Vector3(-1, 1, -4), Vector3(-2, 2, -4), Color(1.0f, 0.5f, 0.0f)));
 
 
     for (int j = 0; j < WINDOW_HEIGHT; ++j) {
         for (int i = 0; i < WINDOW_WIDTH; ++i) {
             Ray ray = camera.generateRay(i, j, WINDOW_WIDTH, WINDOW_HEIGHT);
 
-            Color pixelColor(0, 0, 1);
+            Color pixelColor(0, 0, 0);
             float traceDistance;
             int objectId;
             bool isSphere;
             if (scene.trace(ray, traceDistance, objectId, isSphere)) {
-                pixelColor = isSphere ? Color(1.0f, 0.0f, 0.0f) : Color(0.0f, 1.0f, 0.0f);
+                pixelColor = scene.getObjectById(objectId)->getColor();
             }
 
             image.SetPixel(i, j, pixelColor);

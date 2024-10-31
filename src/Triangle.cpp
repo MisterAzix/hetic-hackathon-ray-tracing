@@ -2,8 +2,8 @@
 #include "Color.h"
 #include "Vector3.h"
 
-Triangle::Triangle(const Vector3 &v0, const Vector3 &v1, const Vector3 &v2, const Color& color)
-    : v0(v0), v1(v1), v2(v2), color(color) {}
+Triangle::Triangle(const Vector3 &v0, const Vector3 &v1, const Vector3 &v2, const Color& color, float reflectivity)
+    : v0(v0), v1(v1), v2(v2), color(color), reflectivity(reflectivity) {}
 
 bool Triangle::intersect(const Ray &ray, float &distance) const {
     const float tolerance = 1e-6;

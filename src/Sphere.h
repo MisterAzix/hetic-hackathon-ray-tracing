@@ -10,8 +10,9 @@ public:
     Vector3 center;
     float radius;
     Color color;
+    float reflectivity;
 
-    Sphere(const Vector3 &center, float radius, const Color &color);
+    Sphere(const Vector3 &center, float radius, const Color &color, float reflectivity = 0.0f);
 
     bool intersect(const Ray &ray, float &t) const override;
 
@@ -20,4 +21,6 @@ public:
     Vector3 getNormal(const Vector3 &point) const override;
 
     Color getColorAt(const Vector3 &) const override;
+
+    float getReflectivity() const override { return reflectivity; }
 };

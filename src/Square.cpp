@@ -2,8 +2,8 @@
 #include "Color.h"
 #include "Vector3.h"
 
-Square::Square(const Vector3 &center, float size, const Color& color)
-    : center(center), size(size), normal(0, 0, 1), color(color) {}
+Square::Square(const Vector3 &center, float size, const Color& color, float reflectivity)
+    : center(center), size(size), normal(0, 0, 1), color(color), reflectivity(reflectivity) {}
 
 bool Square::intersect(const Ray &ray, float &t) const {
     if (ray.direction.z == 0) {

@@ -1,6 +1,8 @@
 #include "Scene.h"
 #include "Sphere.h"
 
+Scene::Scene() : ambientLight(Color(0.1f, 0.1f, 0.1f)) {}
+
 void Scene::addObject(Object *object) {
     objects.push_back(object);
 }

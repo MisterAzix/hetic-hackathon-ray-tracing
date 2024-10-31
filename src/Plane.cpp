@@ -36,15 +36,13 @@ Color Plane::getCheckerboardColor(const Vector3 &hit_point) const
 
     float ringWidth = 5.0f;
     float lineThickness = 0.1f;
-    float maxDistance = 6 * ringWidth; // Limite aux six premiers anneaux
+    float maxDistance = 6 * ringWidth;
 
-    // Vérifie si le point est dans la portée des six premiers anneaux
     if (distanceFromCenter > maxDistance)
     {
-        return Color(0.0f, 0.0f, 0.0f); // Couleur noire pour les zones en dehors des six premiers anneaux
+        return Color(0.0f, 0.0f, 0.0f);
     }
 
-    // Vérifie si le point se trouve dans une bande "ligne" ou "espace"
     bool isLine = (distanceFromCenter - std::floor(distanceFromCenter / ringWidth) * ringWidth) < lineThickness;
     return isLine ? Color(1.0f, 1.0f, 1.0f) : Color(0.0f, 0.0f, 0.0f);
 }

@@ -20,7 +20,5 @@ public:
 
     Vector3 getNormal(const Vector3 &point) const override;
 
-    Color getColorAt(const Vector3 &) const override;
-
     float getReflectivity() const override { return reflectivity; }
 };

@@ -2,6 +2,8 @@
 #include "Ray.h"
 #include "Color.h"
 #include "Vector3.h"
+#include "PlanetTextures.h"
+
 
 class Object
 {
@@ -12,31 +14,43 @@ public:
 
     bool isMetal = false;
     float metalRoughness = 0.1f;
-
+    PlanetTextures::PlanetType planetType = PlanetTextures::NONE;
     virtual Color getColorAt(const Vector3 &hit_point) const {
-        if (!isMetal) {
+
+    // First check if it's a planet
+        if (planetType != PlanetTextures::NONE) {
+            Vector3 normal = getNormal(hit_point).normalize();
+            switch (planetType) {
+                case PlanetTextures::EARTH:
+                    return PlanetTextures::getEarthColor(hit_point, normal);
+                case PlanetTextures::MOON:
+                    return PlanetTextures::getMoonColor(hit_point, normal);
+                case PlanetTextures::MARS:
+                    return PlanetTextures::getMarsColor(hit_point, normal);
+                case PlanetTextures::JUPITER:
+                    return PlanetTextures::getJupiterColor(hit_point, normal);
+                case PlanetTextures::SATURN:
+                    return PlanetTextures::getSaturnColor(hit_point, normal);
+                default:
             return getColor();
+            }
+        }
+        
+    // Then check if it's metal
+        if (isMetal) {
+            Color baseColor = getColor();
+            Vector3 normal = getNormal(hit_point).normalize();
+            
+            float fresnel = std::abs(normal.y);
+            float normalVariation = (normal.y + 1.0f) * 0.5f;
+            float metallic = fresnel * (1.0f - metalRoughness) + 
+                            normalVariation * metalRoughness;
+            
+            return baseColor * (metallic + 0.2f);
         }
 
-        // Get the base color of the object
-        Color baseColor = getColor();
-        
-        // Get the surface normal at this point
-        Vector3 normal = getNormal(hit_point).normalize();
-        
-        // Create metallic effect:
-        // 1. Basic fresnel effect (metal gets brighter at glancing angles)
-        float fresnel = std::abs(normal.y);  // Simplification of fresnel
-        
-        // 2. Add some variation based on surface orientation
-        float normalVariation = (normal.y + 1.0f) * 0.5f;
-        
-        // 3. Combine effects
-        float metallic = fresnel * (1.0f - metalRoughness) + 
-                        normalVariation * metalRoughness;
-        
-        // 4. Apply to base color
-        return baseColor * (metallic + 0.2f);  // 0.2 is ambient light factor
+    // If it's neither a planet nor metal, return basic color
+    return getColor();
     }
     virtual Vector3 getNormal(const Vector3 &point) const = 0;
     

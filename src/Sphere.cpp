@@ -35,10 +35,6 @@ Color Sphere::getColor() const
     return color;
 }
 
-Color Sphere::getColorAt(const Vector3 &) const
-{
-    return getColor();
-}
 
 Vector3 Sphere::getNormal(const Vector3 &point) const
 {

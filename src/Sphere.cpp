@@ -3,7 +3,7 @@
 #include "Color.h"
 #include <cmath>
 
-Sphere::Sphere(const Vector3 &center, const float radius, const Color &color) : center(center), radius(radius), color(color) {}
+Sphere::Sphere(const Vector3 &center, const float radius, const Color &color, float reflectivity) : center(center), radius(radius), color(color), reflectivity(reflectivity) {}
 
 bool Sphere::intersect(const Ray &ray, float &t) const
 {
@@ -16,10 +16,20 @@ bool Sphere::intersect(const Ray &ray, float &t) const
     {
         return false;
     }
-    t = (-b - std::sqrt(discriminant)) / (2.0f * a);
+
+    float t0 = (-b - std::sqrt(discriminant)) / (2.0f * a);
+    float t1 = (-b + std::sqrt(discriminant)) / (2.0f * a);
+
+    if (t0 > 0.001f) {
+        t = t0;
+    } else if (t1 > 0.001f) {
+        t = t1;
+    } else {
+        return false;
+    }
+    
     return true;
 }
-
 Color Sphere::getColor() const
 {
     return color;

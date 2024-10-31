@@ -3,7 +3,7 @@
 #include "Color.h"
 #include "Vector3.h"
 
-Plane::Plane(const Vector3 &point, const Vector3 &normal, const Color &color) : point(point), normal(normal.normalize()), color(color) {}
+Plane::Plane(const Vector3 &point, const Vector3 &normal, const Color &color, float reflectivity) : point(point), normal(normal.normalize()), color(color), reflectivity(reflectivity) {}
 
 bool Plane::intersect(const Ray &ray, float &t) const
 {

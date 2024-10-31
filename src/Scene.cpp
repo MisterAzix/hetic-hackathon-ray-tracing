@@ -1,6 +1,9 @@
 #include "Scene.h"
 #include "Sphere.h"
 
+// Constructeur pour initialiser la lumière ambiante
+Scene::Scene() : ambientLight(Color(0.1f, 0.1f, 0.1f)) {} // Valeur par défaut
+
 void Scene::addObject(Object *object) {
     objects.push_back(object);
 }

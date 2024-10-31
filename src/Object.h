@@ -15,4 +15,7 @@ public:
     virtual Vector3 getNormal(const Vector3 &point) const = 0;
 
     virtual ~Object() = default;
+
+    float reflectivity = 0.0f;
+    virtual float getReflectivity() const { return reflectivity; }
 };

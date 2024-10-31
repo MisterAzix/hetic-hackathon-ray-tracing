@@ -1,4 +1,6 @@
 #include <cmath>
+#include <thread>
+#include <vector>
 #include "Camera.h"
 #include "Ray.h"
 #include "Vector3.h"
@@ -21,31 +23,46 @@ Ray Camera::generateRay(int i, int j, int width, int height) const {
 void Camera::render(const Scene &scene, Image &image) const {
     int width = image.getWidth();
     int height = image.getHeight();
+    int numThreads = std::thread::hardware_concurrency();
+    int bandHeight = height / numThreads;
 
-    for (int j = 0; j < height; ++j) {
-        for (int i = 0; i < width; ++i) {
-            Ray ray = generateRay(i, j, width, height);
+    auto renderBand = [&](int startY, int endY) {
+        for (int j = startY; j < endY; ++j) {
+            for (int i = 0; i < width; ++i) {
+                Ray ray = generateRay(i, j, width, height);
 
-            float traceDistance;
-            int objectId;
+                float traceDistance;
+                int objectId;
 
-            if (scene.trace(ray, traceDistance, objectId)) {
-                Object *object = scene.getObjectById(objectId);
+                if (scene.trace(ray, traceDistance, objectId)) {
+                    Object *object = scene.getObjectById(objectId);
 
-                if (object) {
-                    Vector3 hit_point = ray.origin + ray.direction * traceDistance;
-                    Vector3 normal = object->getNormal(hit_point);
+                    if (object) {
+                        Vector3 hit_point = ray.origin + ray.direction * traceDistance;
+                        Vector3 normal = object->getNormal(hit_point);
 
-                    Color objectColor = object->getColorAt(hit_point);
+                        Color objectColor = object->getColorAt(hit_point);
 
-                    Color pixelColor = computeLighting(scene, hit_point, normal, ray, objectColor);
+                        Color pixelColor = computeLighting(scene, hit_point, normal, ray, objectColor);
 
-                    image.SetPixel(i, j, pixelColor);
+                        image.SetPixel(i, j, pixelColor);
+                    }
+                } else {
+                    image.SetPixel(i, j, Color(0, 0, 0));
                 }
-            } else {
-                image.SetPixel(i, j, Color(0, 0, 0));
             }
         }
+    };
+
+    std::vector<std::thread> threads;
+    for (int t = 0; t < numThreads; ++t) {
+        int startY = t * bandHeight;
+        int endY = (t == numThreads - 1) ? height : startY + bandHeight;
+        threads.emplace_back(renderBand, startY, endY);
+    }
+
+    for (auto &thread : threads) {
+        thread.join();
     }
 }
 

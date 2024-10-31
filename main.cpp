@@ -11,8 +11,8 @@
 #include "src/Camera.h"
 #include "src/Light.h"
 
-constexpr int WINDOW_WIDTH = 1920;
-constexpr int WINDOW_HEIGHT = 1080;
+constexpr int WINDOW_WIDTH = 4096;
+constexpr int WINDOW_HEIGHT = 2160;
 constexpr float FOV = 30.0f;
 constexpr int SPHERE_COUNT = 50;
 constexpr float POSITION_DISTRIBUTION_MIN = -10.0f;
@@ -81,6 +81,8 @@ int main() {
     Scene scene;
 
     scene.addLight(Light(Vector3(3, 2, -3), Color(1.0f, 1.0f, 1.0f), 1.0f));
+    scene.addLight(Light(Vector3(-5, -1, 3), Color(1.0f, 0.3f, 1.0f), 0.2f));
+    scene.addLight(Light(Vector3(-7, 5, 10), Color(1.0f, 0.1f, 0.1f), 0.3f));
     generateScene(scene, generator);
 
     std::cout << "Starting image generation..." << std::endl;
